@@ -1,1 +1,1 @@
-# react-todo-app
+# 클론 코딩 강의
