@@ -1,7 +1,8 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const todoData = [
+  const [todoData, setTodoData] = useState([
     {
       id: "1",
       title: "공부하기",
@@ -12,7 +13,12 @@ function App() {
       title: "청소하기",
       completed: false,
     },
-  ];
+  ]);
+
+  const handleClick = (id) => {
+    const newData = todoData.filter((data) => data.id !== id);
+    setTodoData(newData);
+  };
   return (
     <div className="container">
       <div className="todoBlock">
@@ -24,7 +30,9 @@ function App() {
             <div className="listStyle" key={data.id}>
               <input type="checkbox" defaultChecked={data.completed} />
               {data.title}
-              <button className="btnStyle">x</button>
+              <button onClick={() => handleClick(data.id)} className="btnStyle">
+                x
+              </button>
             </div>
           );
         })}
