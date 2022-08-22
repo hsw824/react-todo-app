@@ -24,6 +24,24 @@ function App() {
     setTodoData((prev) => [...prev, newTodo]);
     setValue("");
   };
+
+  const getStyle = (completed) => {
+    return {
+      padding: "10px",
+      borderBottom: "1px dotted #ccc",
+      textDecoration: completed ? "line-through" : "none",
+    };
+  };
+
+  const handleCompleChange = (id) => {
+    let newTodoData = todoData.map((data) => {
+      if (data.id === id) {
+        data.completed = !data.completed;
+      }
+      return data;
+    });
+    setTodoData(newTodoData);
+  };
   return (
     <div className="container">
       <div className="todoBlock">
@@ -47,8 +65,12 @@ function App() {
         </form>
         {todoData.map((data) => {
           return (
-            <div className="listStyle" key={data.id}>
-              <input type="checkbox" defaultChecked={data.completed} />
+            <div style={getStyle(data.completed)} key={data.id}>
+              <input
+                type="checkbox"
+                defaultChecked={data.completed}
+                onChange={() => handleCompleChange(data.id)}
+              />
               {data.title}
               <button onClick={() => handleClick(data.id)} className="btnStyle">
                 x
