@@ -1,14 +1,10 @@
 import { useState } from "react";
 import "./App.css";
+import List from "./components/List";
 
 function App() {
   const [todoData, setTodoData] = useState([]);
   const [value, setValue] = useState("");
-
-  const handleClick = (id) => {
-    const newData = todoData.filter((data) => data.id !== id);
-    setTodoData(newData);
-  };
 
   const onChange = (event) => {
     setValue(event.currentTarget.value);
@@ -25,23 +21,6 @@ function App() {
     setValue("");
   };
 
-  const getStyle = (completed) => {
-    return {
-      padding: "10px",
-      borderBottom: "1px dotted #ccc",
-      textDecoration: completed ? "line-through" : "none",
-    };
-  };
-
-  const handleCompleChange = (id) => {
-    let newTodoData = todoData.map((data) => {
-      if (data.id === id) {
-        data.completed = !data.completed;
-      }
-      return data;
-    });
-    setTodoData(newTodoData);
-  };
   return (
     <div className="container">
       <div className="todoBlock">
@@ -63,21 +42,7 @@ function App() {
             className="btn"
           />
         </form>
-        {todoData.map((data) => {
-          return (
-            <div style={getStyle(data.completed)} key={data.id}>
-              <input
-                type="checkbox"
-                defaultChecked={data.completed}
-                onChange={() => handleCompleChange(data.id)}
-              />
-              {data.title}
-              <button onClick={() => handleClick(data.id)} className="btnStyle">
-                x
-              </button>
-            </div>
-          );
-        })}
+        <List todoData={todoData} setTodoData={setTodoData} />
       </div>
     </div>
   );
