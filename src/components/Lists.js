@@ -1,7 +1,7 @@
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from "./List";
 
-const Lists = ({ todoData, setTodoData }) => {
+const Lists = ({ todoData, setTodoData, handleClick }) => {
   const handleEnd = (result) => {
     if (!result.destination) return;
 
@@ -34,6 +34,7 @@ const Lists = ({ todoData, setTodoData }) => {
                       setTodoData={setTodoData}
                       provided={provided}
                       snapshot={snapshot}
+                      handleClick={handleClick}
                     />
                   )}
                 </Draggable>
